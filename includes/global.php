@@ -12,7 +12,7 @@ define('ZAGLUSHKA_MAIL', "0"); // 1 - Заглушка для работы по�
 define('SEND_MAIL_TO_TEST_ADDR', "1"); // 1 - Отправка на тестовые email адреса, 0 - отправка на настоящие email адреса
 define('TEST_EMAILS', "javajan@mail.ru,sanzhar@yahoo.com"); // тестовые адреса, разделенные запятой, используются если SEND_MAIL_TO_TEST_ADDR=1 
 
-
+//testing
 
 include_once 'includes/class_dao.php';
 require_once(SMARTY_DIR . 'Smarty.class.php');
