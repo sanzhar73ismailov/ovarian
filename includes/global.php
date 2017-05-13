@@ -7,7 +7,7 @@ define('DEBUG', "1");
 define('ADMIN_CODE', "ovarian2017");
 define('ADMIN_EMAIL', "sanzhar73@mail.ru");
 define('SENDER_EMAIL', "sanzhar73@mail.ru");
-define('GENERATE_TEST_OBJECTS', "0"); // 1 - генерировать тестовые объекты для форм, 0 - не генерировать
+define('GENERATE_TEST_OBJECTS', "1"); // 1 - генерировать тестовые объекты для форм, 0 - не генерировать
 define('ZAGLUSHKA_MAIL', "0"); // 1 - Заглушка для работы почты (отправляться не будет), 0 - почта будет отправляться
 define('SEND_MAIL_TO_TEST_ADDR', "1"); // 1 - Отправка на тестовые email адреса, 0 - отправка на настоящие email адреса
 define('TEST_EMAILS', "javajan@mail.ru,sanzhar@yahoo.com"); // тестовые адреса, разделенные запятой, используются если SEND_MAIL_TO_TEST_ADDR=1 

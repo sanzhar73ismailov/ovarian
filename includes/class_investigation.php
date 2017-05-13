@@ -263,6 +263,7 @@ class InvestInclusion extends Entity{
 	public $impaired_hematological_parameters_yes_no_id;
 	public $impaired_cardiovascular_function_yes_no_id;
 	public $kaposi_sarcoma_yes_no_id;
+	public $pregnancy_yes_no_id;
 	public $checked;
 	public $user;
 	public $insert_date;
@@ -295,8 +296,10 @@ class InvestInclusion extends Entity{
 		&& (!$this->impaired_renal_function_yes_no_id)
 		&& (!$this->impaired_hematological_parameters_yes_no_id)
 		&& (!$this->impaired_cardiovascular_function_yes_no_id)
-		&& (!$this->kaposi_sarcoma_yes_no_id);
+		&& (!$this->kaposi_sarcoma_yes_no_id)
+		&& (!$this->pregnancy_yes_no_id);
 		//var_dump($excludedParam);
+		//$pregnancy_yes_no_id
 		$retRes = (int) ($includedParam && $excludedParam);
 		//var_dump($retRes);
 		return $retRes;

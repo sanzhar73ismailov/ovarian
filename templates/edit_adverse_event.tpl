@@ -30,7 +30,7 @@
 
 
 				<tr>
-					<td class='td_label_form'>Отмечались неблагоприятные явления
+					<td class='td_label_form'>Отмечались нежелательные явления
 						да/нет</td>
 					<td>Да <input {$class_req_input} type="radio"
 						{$disabled} name="adverse_event_yes_no_id" value="1" {if
@@ -57,7 +57,7 @@
 						
 						{if count($object->adverseEventDetails) > 0}
 						<table border='1'>
-							<th>Наименование явление</th>
+							<th>Наименование явления</th>
 							<th>Это серьезное явление? Да/Нет</th>
 							<th>Дата начала (дд/мм/гггг)</th>
 							<th>Явление разрешилось? Да/Нет</th>

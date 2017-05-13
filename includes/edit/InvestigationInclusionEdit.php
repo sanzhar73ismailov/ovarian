@@ -48,6 +48,7 @@ class InvestigationInclusionEdit extends EntityEdit{
 		$entity->impaired_hematological_parameters_yes_no_id = $this->getNullForObjectFieldIfStringEmpty($this->getValFromRequest($request, 'impaired_hematological_parameters_yes_no_id'));
 		$entity->impaired_cardiovascular_function_yes_no_id = $this->getNullForObjectFieldIfStringEmpty($this->getValFromRequest($request, 'impaired_cardiovascular_function_yes_no_id'));
 		$entity->kaposi_sarcoma_yes_no_id = $this->getNullForObjectFieldIfStringEmpty($this->getValFromRequest($request, 'kaposi_sarcoma_yes_no_id'));
+		$entity->pregnancy_yes_no_id = $this->getNullForObjectFieldIfStringEmpty($this->getValFromRequest($request, 'pregnancy_yes_no_id'));
 		$entity->user=$this->user;
 		return $entity;
 	}
@@ -73,6 +74,7 @@ class InvestigationInclusionEdit extends EntityEdit{
 		$smarty->assign('impaired_hematological_parameters_yes_no_vals', $dao->getDicValues("impaired_hematological_parameters_yes_no_id"));
 		$smarty->assign('impaired_cardiovascular_function_yes_no_vals', $dao->getDicValues("impaired_cardiovascular_function_yes_no_id"));
 		$smarty->assign('kaposi_sarcoma_yes_no_vals', $dao->getDicValues("kaposi_sarcoma_yes_no_id"));
+		$smarty->assign('pregnancy_yes_no_id', $dao->getDicValues("pregnancy_yes_no_id"));
 	}
 
 	public function display_tpl(){

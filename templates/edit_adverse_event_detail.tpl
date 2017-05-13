@@ -28,7 +28,7 @@ function resolved_date_set_required(){
 			<div class="center_title">
 				Пациент: № {$patient->patient_number}. <a href="index.php?page=visits&patient_id={$patient->id}">Назад в "Визиты"</a>
 			</div>
-			<div class="center_title">Детали побочного явления</div>
+			<div class="center_title">Детали нежелательного явления</div>
 			<div class="center_title">Визит: {$visit['descr']}</div>
 			<!--   http://localhost/ovarian/edit.php?entity=investigation&patient_id=12&investigation_id=6&visit_id=1 -->
 			<div class="center_title"><a href="edit.php?entity=investigation&patient_id={$patient->id}&investigation_id=6&visit_id={$visit['id']}">Назад</a></div>
@@ -79,6 +79,12 @@ function resolved_date_set_required(){
 								{$disabled} name="serious_yes_no_id" value="0" {if
 								isset($object->serious_yes_no_id) &&
 								$object->serious_yes_no_id == 0} checked {/if}/>
+								<ul type="disc"> 
+								<li>Если явление <b>серьезное</b>, просьба заполнить бланк СНЯ и отправьте Спонсор-Исследователю(далее С-И) и/или Монитору 
+								в течение 24 часов на электронные адреса: surya_esentay@mail.ru, kossanova@synergycro.ru</li>
+								<li>Если <b>не серьезное</b>, просьба заполнить форму отчетности по НЯ (Приложение 1)</li>
+								</ul>
+								
 							</td>
 						</tr>
 						<tr>

@@ -370,8 +370,8 @@ function bilirubinDependentElsRequiredOff(){
 			value="{if isset($object->bc_creat_date)}{$object->bc_creat_date|date_format:'%d/%m/%Y'}{else}{/if}" onblur="IsObjDate(this);"
 			onkeyup="TempDt(event,this);" /></td>
 	</tr>
-	<tr class="tr_open_close"><td class='td_label_form'><b> Щелочная фосфатаза да/нет</b></td><td>&nbsp;</td></tr>
-	<tr>
+	<tr  style="display:none;" class="tr_open_close"><td class='td_label_form'><b> Щелочная фосфатаза да/нет</b></td><td>&nbsp;</td></tr>
+	<tr style="display:none;">
 		<td class='td_label_form'>Щелочная фосфатаза да/нет</td>
 		<td>Да <input onclick="labDependentElsRequiredOn(this);" type="radio" {$disabled}
 			{$readonly} name="bc_alk_phosphatase_yes_no_id" size="50" value="1"
@@ -382,13 +382,13 @@ function bilirubinDependentElsRequiredOff(){
 			{if isset($object->bc_alk_phosphatase_yes_no_id) &&
 		$object->bc_alk_phosphatase_yes_no_id == 0} checked {/if}/></td>
 	</tr>
-	<tr>
+	<tr style="display:none;">
 		<td class='td_label_form'>Щелочная фосфатаза ед/л</td>
 		<td><input type="number" step="0.01"
 			{$readonly} name="bc_alk_phosphatase" id="bc_alk_phosphatase" size="50"
-			value="{$object->bc_alk_phosphatase}" /></td>
+			value="-1" /></td>
 	</tr>
-	<tr>
+	<tr style="display:none;>
 		<td class='td_label_form'>Щелочная фосфатаза дата проведения (дд/мм/гггг)</td>
 		<td><input type="text"
 			{$readonly} name="bc_alk_phosphatase_date"

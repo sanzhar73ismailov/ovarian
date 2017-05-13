@@ -569,6 +569,7 @@ class Dao {
 		$entity->impaired_hematological_parameters_yes_no_id=$row[0]['impaired_hematological_parameters_yes_no_id'];
 		$entity->impaired_cardiovascular_function_yes_no_id=$row[0]['impaired_cardiovascular_function_yes_no_id'];
 		$entity->kaposi_sarcoma_yes_no_id=$row[0]['kaposi_sarcoma_yes_no_id'];
+		$entity->pregnancy_yes_no_id=$row[0]['pregnancy_yes_no_id'];
 		$entity->checked = $row [0] ['checked'];
 		$entity->user=$row[0]['user'];
 		$entity->insert_date=$row[0]['insert_date'];
@@ -1709,6 +1710,7 @@ class Dao {
 				  impaired_hematological_parameters_yes_no_id,
 				  impaired_cardiovascular_function_yes_no_id,
 				  kaposi_sarcoma_yes_no_id,
+				  pregnancy_yes_no_id,
 				  user
 				)
 				VALUE (
@@ -1732,6 +1734,7 @@ class Dao {
 				  :impaired_hematological_parameters_yes_no_id,
 				  :impaired_cardiovascular_function_yes_no_id,
 				  :kaposi_sarcoma_yes_no_id,
+				  :pregnancy_yes_no_id,
 				  :user
 				)";
 
@@ -1756,6 +1759,7 @@ class Dao {
 		$stmt->bindValue ( ':impaired_hematological_parameters_yes_no_id', $entity->impaired_hematological_parameters_yes_no_id, PDO::PARAM_STR );
 		$stmt->bindValue ( ':impaired_cardiovascular_function_yes_no_id', $entity->impaired_cardiovascular_function_yes_no_id, PDO::PARAM_STR );
 		$stmt->bindValue ( ':kaposi_sarcoma_yes_no_id', $entity->kaposi_sarcoma_yes_no_id, PDO::PARAM_STR );
+		$stmt->bindValue ( ':pregnancy_yes_no_id', $entity->pregnancy_yes_no_id, PDO::PARAM_STR );
 		$stmt->bindValue ( ':user', $entity->user, PDO::PARAM_STR );
 		// echo "<br>".$stmt->queryString . "<br>";
 		try {
@@ -2369,7 +2373,8 @@ class Dao {
 		  impaired_renal_function_yes_no_id = :impaired_renal_function_yes_no_id,
 		  impaired_hematological_parameters_yes_no_id = :impaired_hematological_parameters_yes_no_id,
 		  impaired_cardiovascular_function_yes_no_id = :impaired_cardiovascular_function_yes_no_id,
-		  kaposi_sarcoma_yes_no_id = :kaposi_sarcoma_yes_no_id
+		  kaposi_sarcoma_yes_no_id = :kaposi_sarcoma_yes_no_id,
+		  pregnancy_yes_no_id = :pregnancy_yes_no_id
 		WHERE
 		  id = :id";
 		$stmt = $this->pdo->prepare ( $query );
@@ -2394,6 +2399,7 @@ class Dao {
 		$stmt->bindValue ( ':impaired_hematological_parameters_yes_no_id', $entity->impaired_hematological_parameters_yes_no_id, PDO::PARAM_STR );
 		$stmt->bindValue ( ':impaired_cardiovascular_function_yes_no_id', $entity->impaired_cardiovascular_function_yes_no_id, PDO::PARAM_STR );
 		$stmt->bindValue ( ':kaposi_sarcoma_yes_no_id', $entity->kaposi_sarcoma_yes_no_id, PDO::PARAM_STR );
+		$stmt->bindValue ( ':pregnancy_yes_no_id', $entity->pregnancy_yes_no_id, PDO::PARAM_STR );
 		// echo "<br>".$stmt->queryString . "<br>";
 		try {
 			$stmt->execute ();

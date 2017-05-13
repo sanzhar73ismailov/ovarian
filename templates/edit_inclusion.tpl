@@ -39,8 +39,8 @@
 				</td>
 				</tr>
 				<tr class="tr_open_close">
-				<td class='td_label_form'><b>Критерии включения</b></td>
-				<td>&nbsp;</td>
+				<td class='td_label_form'><b>Критерии включения*</b></td>
+				<td>*Пациент может быть включен если все ответы «да»</td>
 				<tr>
 				<td class='td_label_form'>Возраст ≥18</td>
 				<td>
@@ -90,8 +90,8 @@
 				Нет <input {$class_req_input} type="radio" {$disabled} name="signed_consent_yes_no_id" value="0" {if isset($object->signed_consent_yes_no_id) && $object->signed_consent_yes_no_id == 0} checked {/if}/></td>
 				</tr>
 				<tr class="tr_open_close">
-				<td class='td_label_form'><b>Критерии исключения</b></td>
-				<td>&nbsp;</td>
+				<td class='td_label_form'><b>Критерии исключения**</b></td>
+				<td>**Пациент может быть включен если все ответы «нет»</td>
 				<tr>
 				<td class='td_label_form'>Возраст до 18 лет</td>
 				<td>
@@ -151,6 +151,11 @@
 				<td>
 				Да <input {$class_req_input} type="radio" {$disabled} name="kaposi_sarcoma_yes_no_id" value="1" {if isset($object->kaposi_sarcoma_yes_no_id) && $object->kaposi_sarcoma_yes_no_id == 1} checked {/if}/>
 				Нет <input {$class_req_input} type="radio" {$disabled} name="kaposi_sarcoma_yes_no_id" value="0" {if isset($object->kaposi_sarcoma_yes_no_id) && $object->kaposi_sarcoma_yes_no_id == 0} checked {/if}/></td>
+				</tr>
+				<td class='td_label_form'>Беременность/лактация</td>
+				<td>
+				Да <input {$class_req_input} type="radio" {$disabled} name="pregnancy_yes_no_id" value="1" {if isset($object->pregnancy_yes_no_id) && $object->pregnancy_yes_no_id == 1} checked {/if}/>
+				Нет <input {$class_req_input} type="radio" {$disabled} name="pregnancy_yes_no_id" value="0" {if isset($object->pregnancy_yes_no_id) && $object->pregnancy_yes_no_id == 0} checked {/if}/></td>
 				</tr>
 
 
