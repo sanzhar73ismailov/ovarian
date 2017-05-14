@@ -4,7 +4,6 @@
             <param name="conversionPattern" value="%level %date [%logger] [%l][%exception] %message%newline" />
         </layout>
         <param name="file" value="/OpenServer/domains/localhost/logs_ovarian/myLog.log" />
-		<!--for productive  <param name="file" value="/var/www/vhosts/biostat.kz/httpdocs/logs_ovarian/myLog.log" /> -->
 		<param name="maxFileSize" value="1MB" />
         <param name="maxBackupIndex" value="10" />
     </appender>

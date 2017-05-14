@@ -11,8 +11,9 @@ function f1(){
 	$logger->info("in f1 function");
 }
 
-//$logger->info("This is an informational message.");
-//$logger->warn("I'm not feeling so good...");
+$logger->info("This is an informational message.");
+$logger->warn("I'm not feeling so good...");
+echo (realpath(null));
 //try {
 //	throw new Exception('OOOOOOOOO');
 //} catch (Exception $e) {

@@ -9,6 +9,8 @@ include_once 'edit/InvestigationTumorResponseEdit.php';
 include_once 'edit/InvestigationAdverseEventEdit.php';
 include_once 'edit/AdverseEventDetailEdit.php';
 include_once 'edit/InvestigationInclusionEdit.php';
+include_once 'edit/InvestigationConcomitantTherapyEdit.php';
+
 
 class EntityEditFabrica {
 	public static function createEntityEdit($request, $do, $id, $dao, $smarty) {
@@ -63,7 +65,10 @@ class EntityEditFabrica {
 					break;
 				case 'ovarian_inclusion' :
 					$entityEditObj = new InvestigationInclusionEdit ( $request, $do, $id, $dao, $smarty );
-					break;	
+					break;
+				case 'ovarian_concomitant_therapy' :
+					$entityEditObj = new InvestigationConcomitantTherapyEdit ( $request, $do, $id, $dao, $smarty );
+					break;		
 				default :
 					throw new Exception ( "No such invest_name: " . $investigation ['name'] );
 			}

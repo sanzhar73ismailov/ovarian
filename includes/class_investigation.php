@@ -307,6 +307,16 @@ class InvestInclusion extends Entity{
 	
 }
 
+class InvestConcomitantTherapy extends Entity{
+	public $id;
+	public $patient_id;
+	public $visit_id;
+	public $chem_2st_concomitant_therapy_descr;
+	public $checked;
+	public $user;
+	public $insert_date;
+}
+
 class InvestQuery extends Entity{
 	public $id;
 	public $investigation_id;
@@ -593,5 +603,13 @@ class GenerateObjects{
 		$entity->kaposi_sarcoma_yes_no_id=1;
 		return $entity;
 	}
-
+	
+public static function generateInvestConcomitantTherapyObject($patient_id, $visit_id){
+		$entity = new InvestInclusion();
+		$entity->id = null;
+		$entity->patient_id = $patient_id;
+		$entity->visit_id = $visit_id;
+		$entity->chem_2st_concomitant_therapy_descr="Bla-bla-bla";
+		return $entity;
+	}
 }

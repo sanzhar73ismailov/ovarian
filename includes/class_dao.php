@@ -65,6 +65,7 @@ class Dao {
 			// echo "<br/>";
 		} catch ( PDOException $ex ) {
 			echo "Ошибка:" . $ex->getMessage ();
+			$this->log->error($ex);
 		}
 		return $results;
 	}
@@ -92,6 +93,7 @@ class Dao {
 			// var_dump($result);
 		} catch ( PDOException $ex ) {
 			echo "Ошибка:" . $ex->getMessage ();
+			$this->log->error($ex);
 		}
 		return $result;
 	}
@@ -106,6 +108,7 @@ class Dao {
 			// echo $query . "\n<br>";
 		} catch ( PDOException $ex ) {
 			// echo "Ошибка:" . $ex->getMessage();
+			$this->log->error($ex);
 			return new Dictionary ( 0, "Такой вариант уже есть" );
 		}
 		return $dic;
@@ -143,6 +146,7 @@ class Dao {
 			$results = $stmt->fetchAll ( PDO::FETCH_ASSOC );
 		} catch ( PDOException $ex ) {
 			echo "Ошибка:" . $ex->getMessage ();
+			$this->log->error($ex);
 		}
 		if (count ( $results ) == 0) {
 			return null;
@@ -164,6 +168,7 @@ class Dao {
 			$row = $stmt->fetchAll ( PDO::FETCH_ASSOC );
 		} catch ( PDOException $ex ) {
 			echo "Ошибка:" . $ex->getMessage ();
+			$this->log->error($ex);
 		}
 		if (count ( $row ) == 0) {
 			return null;
@@ -188,6 +193,7 @@ class Dao {
 			$row = $stmt->fetchAll ( PDO::FETCH_ASSOC );
 		} catch ( PDOException $ex ) {
 			echo "Ошибка:" . $ex->getMessage ();
+			$this->log->error($ex);
 		}
 		if ($stmt->rowCount () == 0) {
 			return false;
@@ -206,6 +212,7 @@ class Dao {
 			$row = $stmt->fetchAll ( PDO::FETCH_ASSOC );
 		} catch ( PDOException $ex ) {
 			echo "Ошибка:" . $ex->getMessage ();
+			$this->log->error($ex);
 		}
 		return $row;
 	}
@@ -219,6 +226,7 @@ class Dao {
 			$row = $stmt->fetchAll ( PDO::FETCH_ASSOC );
 		} catch ( PDOException $ex ) {
 			echo "Ошибка:" . $ex->getMessage ();
+			$this->log->error($ex);
 		}
 		return $row;
 	}
@@ -247,7 +255,8 @@ class Dao {
 			$entity->event_associated_with_drug_yes_no_id = $row [0] ['event_associated_with_drug_yes_no_id'];
 			return $entity;
 		} catch ( PDOException $ex ) {
-			echo "Ошибка:" . $ex->getMessage ();
+			echo "Ошибка:" . $ex->getMessage();
+			$this->log->error($ex);
 		}
 		return $entity;
 	}
@@ -261,6 +270,7 @@ class Dao {
 			$row = $stmt->fetchAll ( PDO::FETCH_ASSOC );
 		} catch ( PDOException $ex ) {
 			echo "Ошибка:" . $ex->getMessage ();
+			$this->log->error($ex);
 		}
 		return $row [0];
 	}
@@ -575,6 +585,20 @@ class Dao {
 		$entity->insert_date=$row[0]['insert_date'];
 		return $entity;
 	}
+	public function getInvestConcomitantTherapy($patient_id, $visit_id) {
+		$row = $this->getInvestCommonMethod ( "concomitant_therapy", $patient_id, $visit_id );
+		if (count ( $row ) == 0) {
+			return null;
+		}
+		$entity = new InvestConcomitantTherapy();
+		$entity->id = $row [0] ['id'];
+		$entity->patient_id = $row [0] ['patient_id'];
+		$entity->visit_id = $row [0] ['visit_id'];
+		$entity->chem_2st_concomitant_therapy_descr = $row [0] ['chem_2st_concomitant_therapy_descr'];
+		$entity->checked = $row [0] ['checked'];
+		$entity->user = $row [0] ['user'];
+		return $entity;
+	}
 	public function getInvestigation($id) {
 		$row = array();
 		$query = "SELECT * from " . DB_PREFIX . "investigation WHERE id=:id";
@@ -585,6 +609,7 @@ class Dao {
 			$row = $stmt->fetchAll ( PDO::FETCH_ASSOC );
 		} catch ( PDOException $ex ) {
 			echo "Ошибка:" . $ex->getMessage ();
+			$this->log->error($ex);
 		}
 		return $row[0];
 	}
@@ -598,6 +623,7 @@ class Dao {
 			$row = $stmt->fetchAll ( PDO::FETCH_ASSOC );
 		} catch ( PDOException $ex ) {
 			echo "Ошибка:" . $ex->getMessage ();
+			$this->log->error($ex);
 		}
 		return $row[0]['checked'];
 	}
@@ -620,6 +646,7 @@ class Dao {
 			$row = $stmt->fetchAll ( PDO::FETCH_ASSOC );
 		} catch ( PDOException $ex ) {
 			echo "Ошибка:" . $ex->getMessage ();
+			$this->log->error($ex);
 		}
 		if ($stmt->rowCount () == 0) {
 			return null;
@@ -652,6 +679,7 @@ class Dao {
 			$rows = $stmt->fetchAll ( PDO::FETCH_ASSOC );
 		} catch ( PDOException $ex ) {
 			echo "Ошибка:" . $ex->getMessage ();
+			$this->log->error($ex);
 		}
 		foreach ( $rows as $row ) {
 			$object = new User ();
@@ -723,6 +751,7 @@ class Dao {
 			$row = $stmt->fetchAll ( PDO::FETCH_ASSOC );
 		} catch ( PDOException $ex ) {
 			echo "Ошибка:" . $ex->getMessage ();
+			$this->log->error($ex);
 		}
 		if ($stmt->rowCount () == 0) {
 			return false;
@@ -752,6 +781,7 @@ class Dao {
 			}
 		} catch ( PDOException $ex ) {
 			echo "Ошибка:" . $ex->getMessage ();
+			$this->log->error($ex);
 		}
 		return false;
 	}
@@ -803,6 +833,7 @@ class Dao {
 			}
 		} catch ( PDOException $ex ) {
 			echo "Ошибка:" . $ex->getMessage ();
+			$this->log->error($ex);
 		}
 		return $this->pdo->lastInsertId ();
 	}
@@ -832,6 +863,7 @@ class Dao {
 			}
 		} catch ( PDOException $ex ) {
 			echo "Ошибка:" . $ex->getMessage ();
+			$this->log->error($ex);
 		}
 		return $this->pdo->lastInsertId ();
 	}
@@ -857,6 +889,7 @@ class Dao {
 			$results = $stmt->fetchAll ( PDO::FETCH_ASSOC );
 		} catch ( PDOException $ex ) {
 			echo "Ошибка:" . $ex->getMessage ();
+			$this->log->error($ex);
 		}
 		if (count ( $results ) == 0) {
 			return "";
@@ -887,6 +920,7 @@ class Dao {
 			return $row [0];
 		} catch ( PDOException $ex ) {
 			echo "Ошибка:" . $ex->getMessage ();
+			$this->log->error($ex);
 			throw $ex;
 		}
 		return $row;
@@ -913,6 +947,7 @@ class Dao {
 			$affected_rows = $stmt->rowCount ();
 		} catch ( PDOException $ex ) {
 			//echo "Ошибка:" . $ex->getMessage ();
+			$this->log->error($ex);
 			throw $ex;
 		}
 	}
@@ -952,6 +987,7 @@ class Dao {
 			}
 		} catch ( PDOException $ex ) {
 			echo "Ошибка:" . $ex->getMessage ();
+			$this->log->error($ex);
 		}
 		return $this->pdo->lastInsertId ();
 	}
@@ -1312,6 +1348,7 @@ class Dao {
 			// }
 		} catch ( PDOException $ex ) {
 			echo "Ошибка:" . $ex->getMessage ();
+			$this->log->error($ex);
 		}
 		return $this->pdo->lastInsertId ();
 	}
@@ -1387,6 +1424,7 @@ class Dao {
 			$affected_rows = $stmt->rowCount ();
 		} catch ( PDOException $ex ) {
 			echo "Ошибка:" . $ex->getMessage ();
+			$this->log->error($ex);
 		}
 		return $this->pdo->lastInsertId ();
 	}
@@ -1534,6 +1572,7 @@ class Dao {
 			$affected_rows = $stmt->rowCount ();
 		} catch ( PDOException $ex ) {
 			echo "Ошибка:" . $ex->getMessage ();
+			$this->log->error($ex);
 		}
 		return $this->pdo->lastInsertId ();
 	}
@@ -1573,6 +1612,7 @@ class Dao {
 			$affected_rows = $stmt->rowCount ();
 		} catch ( PDOException $ex ) {
 			echo "Ошибка:" . $ex->getMessage ();
+			$this->log->error($ex);
 		}
 		return $this->pdo->lastInsertId ();
 	}
@@ -1606,6 +1646,7 @@ class Dao {
 			$affected_rows = $stmt->rowCount ();
 		} catch ( PDOException $ex ) {
 			echo "Ошибка:" . $ex->getMessage ();
+			$this->log->error($ex);
 		}
 		return $this->pdo->lastInsertId ();
 	}
@@ -1636,6 +1677,7 @@ class Dao {
 			$affected_rows = $stmt->rowCount ();
 		} catch ( PDOException $ex ) {
 			echo "Ошибка:" . $ex->getMessage ();
+			$this->log->error($ex);
 		}
 		return $this->pdo->lastInsertId ();
 	}
@@ -1683,6 +1725,7 @@ class Dao {
 			$affected_rows = $stmt->rowCount ();
 		} catch ( PDOException $ex ) {
 			echo "Ошибка:" . $ex->getMessage ();
+			$this->log->error($ex);
 		}
 		return $this->pdo->lastInsertId ();
 	}
@@ -1769,6 +1812,38 @@ class Dao {
 			$this->update_patient_status_include($entity->patient_id, $statusInclusion);
 		} catch ( PDOException $ex ) {
 			echo "Ошибка:" . $ex->getMessage ();
+			$this->log->error($ex);
+		}
+		return $this->pdo->lastInsertId ();
+	}
+	public function insert_concomitant_therapy($entity) {
+		$query = "INSERT INTO
+				  " . DB_PREFIX . "concomitant_therapy
+				(
+				  patient_id,
+				  visit_id,
+				  chem_2st_concomitant_therapy_descr,
+				  user
+				)
+				VALUE (
+				  :patient_id,
+				  :visit_id,
+				  :chem_2st_concomitant_therapy_descr,
+				  :user
+				)";
+
+		$stmt = $this->pdo->prepare ( $query );
+		$stmt->bindValue ( ':patient_id', $entity->patient_id, PDO::PARAM_STR );
+		$stmt->bindValue ( ':visit_id', $entity->visit_id, PDO::PARAM_STR );
+		$stmt->bindValue ( ':chem_2st_concomitant_therapy_descr', $entity->chem_2st_concomitant_therapy_descr, PDO::PARAM_STR );
+		$stmt->bindValue ( ':user', $entity->user, PDO::PARAM_STR );
+		// echo "<br>".$stmt->queryString . "<br>";
+		try {
+			$stmt->execute ();
+			$affected_rows = $stmt->rowCount ();
+		} catch ( PDOException $ex ) {
+			echo "Ошибка:" . $ex->getMessage ();
+			$this->log->error($ex);
 		}
 		return $this->pdo->lastInsertId ();
 	}
@@ -1806,6 +1881,7 @@ class Dao {
 			}
 		} catch ( PDOException $ex ) {
 			echo "Ошибка:" . $ex->getMessage ();
+			$this->log->error($ex);
 		}
 		return $entity->id;
 	}
@@ -2050,6 +2126,7 @@ class Dao {
 			}
 		} catch ( PDOException $ex ) {
 			echo "Ошибка:" . $ex->getMessage ();
+			$this->log->error($ex);
 		}
 		return $entity->id;
 	}
@@ -2108,6 +2185,7 @@ class Dao {
 			}
 		} catch ( PDOException $ex ) {
 			echo "Ошибка:" . $ex->getMessage ();
+			$this->log->error($ex);
 		}
 		return $entity->id;
 	}
@@ -2214,6 +2292,7 @@ class Dao {
 			}
 		} catch ( PDOException $ex ) {
 			echo "Ошибка:" . $ex->getMessage ();
+			$this->log->error($ex);
 		}
 		return $entity->id;
 	}
@@ -2248,6 +2327,7 @@ class Dao {
 			}
 		} catch ( PDOException $ex ) {
 			echo "Ошибка:" . $ex->getMessage ();
+			$this->log->error($ex);
 		}
 		return $entity->id;
 	}
@@ -2278,6 +2358,7 @@ class Dao {
 			}
 		} catch ( PDOException $ex ) {
 			echo "Ошибка:" . $ex->getMessage ();
+			$this->log->error($ex);
 		}
 		return $entity->id;
 	}
@@ -2306,10 +2387,10 @@ class Dao {
 			}
 		} catch ( PDOException $ex ) {
 			echo "Ошибка:" . $ex->getMessage ();
+			$this->log->error($ex);
 		}
 		return $entity->id;
 	}
-
 	public function update_adverse_event_detail($entity) {
 		// echo "in update_ent_name<br/>";
 		$query = "UPDATE
@@ -2346,6 +2427,7 @@ class Dao {
 			}
 		} catch ( PDOException $ex ) {
 			echo "Ошибка:" . $ex->getMessage ();
+			$this->log->error($ex);
 		}
 		return $entity->id;
 	}
@@ -2412,6 +2494,36 @@ class Dao {
 			$this->update_patient_status_include($entity->patient_id, $statusInclusion);
 		} catch ( PDOException $ex ) {
 			echo "Ошибка:" . $ex->getMessage ();
+			$this->log->error($ex);
+		}
+		return $entity->id;
+	}
+	public function update_concomitant_therapy($entity) {
+		// echo "in update_ent_name<br/>";
+		$query = "UPDATE
+		  " . DB_PREFIX . "instrument
+		SET
+		  patient_id = :patient_id,
+		  visit_id = :visit_id,
+		  chem_2st_concomitant_therapy_descr = :chem_2st_concomitant_therapy_descr
+		WHERE
+		  id = :id";
+		$stmt = $this->pdo->prepare ( $query );
+		$stmt->bindValue ( ':id', $entity->id, PDO::PARAM_STR );
+		$stmt->bindValue ( ':patient_id', $entity->patient_id, PDO::PARAM_STR );
+		$stmt->bindValue ( ':visit_id', $entity->visit_id, PDO::PARAM_STR );
+		$stmt->bindValue ( ':chem_2st_concomitant_therapy_descr', $entity->chem_2st_concomitant_therapy_descr, PDO::PARAM_STR );
+		// echo "<br>".$stmt->queryString . "<br>";
+		try {
+			$stmt->execute ();
+			$affected_rows = $stmt->rowCount ();
+			// echo $affected_rows.' пациент добавлен';
+			if ($affected_rows < 1) {
+				// die("Ошибка, объект не обновлен");
+			}
+		} catch ( PDOException $ex ) {
+			echo "Ошибка:" . $ex->getMessage ();
+			$this->log->error($ex);
 		}
 		return $entity->id;
 	}
