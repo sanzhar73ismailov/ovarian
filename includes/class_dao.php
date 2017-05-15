@@ -734,6 +734,12 @@ class Dao {
 		}
 		return $emailArray;
 	}
+	public function getUserEmail($user_email) {
+		if(SEND_MAIL_TO_TEST_ADDR){
+			return TEST_USER_EMAIL;
+		}
+		return trim($user_email);
+	}
 	public function is_user_exist($username, $pass = null) {
 		$row = array ();
 		$query = "SELECT * FROM " . DB_PREFIX . "user WHERE username_email = :username_email AND active=1";
