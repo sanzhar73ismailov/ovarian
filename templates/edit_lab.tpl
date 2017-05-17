@@ -9,13 +9,12 @@
 /*ИДшники радиокнопок для биоихимии*/
 var biochemRadioIds = ["bc_protein_yes_no_id", "bc_bilirubin_yes_no_id", "bc_bilirubin_total_yes_no_id", 
 	                  "bc_bilirubin_direct_yes_no_id", "bc_bilirubin_nondirect_yes_no_id", 
-	                  "bc_ast_yes_no_id", "bc_alt_yes_no_id", "bc_creat_yes_no_id", "bc_alk_phosphatase_yes_no_id",
+	                  "bc_ast_yes_no_id", "bc_alt_yes_no_id", "bc_creat_yes_no_id",
 	                  "bc_mochevina_yes_no_id"];
 /*ИДшники инпут текстов для биоихимии*/
 var biochemInputIds = ["bc_protein", "bc_protein_date", "bc_bilirubin_total", "bc_bilirubin_total_date", "bc_bilirubin_direct",
                    		"bc_bilirubin_direct_date", "bc_bilirubin_nondirect", "bc_bilirubin_nondirect_date", "bc_ast", "bc_ast_date", 
-                   		"bc_alt", "bc_alt_date", "bc_creat", "bc_creat_date", "bc_alk_phosphatase",
-                   		"bc_alk_phosphatase_date", "bc_mochevina", "bc_mochevina_date"];
+                   		"bc_alt", "bc_alt_date", "bc_creat", "bc_creat_date", "bc_mochevina", "bc_mochevina_date"];
                    		
 /*ИДшники радиокнопок для билирубина*/
 var bilirubinRadioIds = ["bc_bilirubin_total_yes_no_id", "bc_bilirubin_direct_yes_no_id", "bc_bilirubin_nondirect_yes_no_id"];
@@ -90,7 +89,7 @@ function bilirubinDependentElsRequiredOff(){
 	<col width="250">
 	{include file="form_note_req_fields.tpl"}
 	{include file="query.tpl"}
-	<tr style="display: none;">
+	<tr style="display: ;">
 		<td>ID записи</td>
 		<td>{if $object->id} {$object->id} {else}
 		<div style="background-color: #d14836">Новый</div>

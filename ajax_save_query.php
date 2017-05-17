@@ -42,7 +42,7 @@ function getResolveQueryMessage($query_obj){
 	$invest_name = $_REQUEST['query_investigation_name'];
 	$visit_name = $_REQUEST['query_visit_name'];
 	$investigator_email = $_SESSION["user"]['username_email'];
-	$message = sprintf ( "<h3>Уведомление об отработке Query (запроса) N %s</h3>\r\n", $query_obj->id);
+	$message = sprintf ( "<h3>Уведомление об выполнении Query (запроса) N %s</h3>\r\n", $query_obj->id);
 	$message .= sprintf ( "<br/>Описание query: <b>%s</b>.\r\n", $query_obj->description );
 	$message .= sprintf ( "<br/>Номер пациента: %s.\r\n", $patient_number );
 	$message .= sprintf ( "<br/>Исследование: %s.\r\n", $invest_name );
@@ -64,7 +64,7 @@ function getCloseQueryMessage($query_obj){
 	$invest_name = $_REQUEST['query_investigation_name'];
 	$visit_name = $_REQUEST['query_visit_name'];
 	$monitor_email = $_SESSION["user"]['username_email'];
-	$message = sprintf ( "<h3>Уведомление об закрытии Query (запроса) N %s</h3>\r\n", $query_obj->id);
+	$message = sprintf ( "<h3>Уведомление о закрытии Query (запроса) N %s</h3>\r\n", $query_obj->id);
 	$message .= sprintf ( "<br/>Описание query: <b>%s</b>.\r\n", $query_obj->description );
 	$message .= sprintf ( "<br/>Номер пациента: %s.\r\n", $patient_number );
 	$message .= sprintf ( "<br/>Исследование: %s.\r\n", $invest_name );
@@ -103,11 +103,11 @@ try {
 		if($_REQUEST['status'] == 'resolve'){
 			$to_email_array = $dao->getUserEmailsOfMonitorsAndAdmin();
 			$email_to = implode(",", $to_email_array);
-			$subject = sprintf ( "Уведомление об выполнении Query (запроса) N %s", $_REQUEST['id']);
+			$subject = sprintf ( "Уведомление о выполнении Query (запроса) N %s", $_REQUEST['id']);
 			$message = getResolveQueryMessage($updated_query_obj);
 		}elseif ($_REQUEST['status'] == 'close'){
 			$email_to = $dao->getUserEmail($_REQUEST['query_user_email']);
-			$subject = sprintf ( "Уведомление об закрытии Query (запроса) N %s", $_REQUEST['id']);
+			$subject = sprintf ( "Уведомление о закрытии Query (запроса) N %s", $_REQUEST['id']);
 			$message = getCloseQueryMessage($updated_query_obj);
 		}
 		$logger->debug("result_update: " . var_export($result_update, true));

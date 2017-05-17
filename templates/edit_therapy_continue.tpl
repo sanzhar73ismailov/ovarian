@@ -28,7 +28,7 @@ function select_set_required(){
 	<col width="250">
 	{include file="form_note_req_fields.tpl"}
 	{include file="query.tpl"}
-	<tr style="display: none;">
+	<tr style="display: ;">
 		<td>ID записи</td>
 		<td>{if $object->id} {$object->id} {else}
 		<div style="background-color: #d14836">Новый</div>

@@ -1,5 +1,5 @@
 <?php
-define('VERSION', '17.05.15.1');
+define('VERSION', '17.05.17.1');
 define('SMARTY_DIR', '../Smarty-3.1.18/libs/');
 define('SITE_NAME', "Индивидуальная регистрационная карта <br> Исследование по использованию препарата трабектедин (Йонделис®)");
 define('SITE_NAME_SHORT', "Электронная ИРК - RENAISSANCE");

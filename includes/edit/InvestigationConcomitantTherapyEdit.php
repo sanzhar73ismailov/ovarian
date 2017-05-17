@@ -51,7 +51,7 @@ class InvestigationConcomitantTherapyEdit extends EntityEdit{
 			if (GENERATE_TEST_OBJECTS) {
 				$entityObj = GenerateObjects::generateInvestConcomitantTherapyObject ($this->request ["patient_id"], $this->request ["visit_id"]);
 			} else {
-				$entityObj = new InvestInclusion ();
+				$entityObj = new InvestConcomitantTherapy ();
 			}
 		}
 		return $entityObj;

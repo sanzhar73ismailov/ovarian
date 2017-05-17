@@ -2507,7 +2507,7 @@ class Dao {
 	public function update_concomitant_therapy($entity) {
 		// echo "in update_ent_name<br/>";
 		$query = "UPDATE
-		  " . DB_PREFIX . "instrument
+		  " . DB_PREFIX . "concomitant_therapy
 		SET
 		  patient_id = :patient_id,
 		  visit_id = :visit_id,
