@@ -46,7 +46,7 @@ $(document).ready(function()
 				 <a class="{$href_class}" href="edit.php?entity=investigation&patient_id={$patient->id}&investigation_id={$col['investigation_id']}&visit_id={$col['visit_id']}">
 					{if $col['isInvestDone']}Открыть{else}Заполнить {/if} 
 				</a> 
-				{if $col['checked']}Вериф{/if}
+				{if $col['checked']}<img width="20" height="20" alt="Править" src="images/verified-41-256.png">{/if}
 				{else} &nbsp; {/if} {/if}</td>
 				{/foreach} 
 			</tr>

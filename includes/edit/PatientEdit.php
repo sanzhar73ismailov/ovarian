@@ -50,6 +50,7 @@ class PatientEdit extends EntityEdit{
 		if($entityObj == null){
 			$entityObj = new Patient ();
 			$entityObj->hospital_id = $this->userObject->hospital_id;
+			$entityObj->patient_number = str_pad($this->userObject->hospital_id, 3, "0", STR_PAD_LEFT) . "XX";
 		}
 		return $entityObj;
 	}

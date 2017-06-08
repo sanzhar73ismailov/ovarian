@@ -6,6 +6,14 @@
 <title>{$title}</title>
 {include file="js_include.tpl"}
 <script type="text/javascript">
+function checkNumber(){
+	var patientNumber = document.getElementById("patient_number").value;
+	if(/XX$/.test(patientNumber)){
+        alert("Замените в номере пациента 'XX' на порядковый номер, например '01'");
+        return false;
+	}
+	return true;
+}
 </script>
 </head>
 <body>
@@ -16,7 +24,7 @@
 {* <div id="wrap">{include file="panel.tpl"} *}
 <div class="center_title">Пациент</div>
 
-<form method="post" action="edit.php" onsubmit="return checkform(this)">
+<form method="post" action="edit.php">
 <input type="hidden" name="do" value="save" /> <input type="hidden"
 	name="entity" value="{$entity}" />
 
@@ -56,10 +64,16 @@
 		</select></td>
 	</tr>
 	<tr>
-		<td>Номер пациента</td>
+		<td>Номер пациента
+		
+		</td>
 		<td><input {$class_req_input} type="text"
 			{$readonly} name="patient_number" id="patient_number" size="50"
-			value="{$object->patient_number}" onChange="check_uniq_pat_num(this);"/></td>
+			value="{$object->patient_number}" onChange="check_uniq_pat_num(this);"/>
+			{if $edit and !$object->id}
+		<br/><font color="blue" style="font-size: 16px;">"XX" заменить на порядковый номер, напр. "01" для первого пациента и т.д.</font>
+		{/if}
+			</td>
 	</tr>
 
 	{*
@@ -79,7 +93,7 @@
 	
 	{if $edit}
 	<tr>
-		<td><input type="submit" value="Сохранить"
+		<td><input type="submit" value="Сохранить" onclick="return checkNumber();"
 			style="width: 120px; height: 20px"></td>
 		<td><input type="reset" value="Сброс"
 			style="width: 120px; height: 20px"></td>
