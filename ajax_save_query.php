@@ -93,20 +93,20 @@ try {
 	$email_to = "";
 	$message = "";
 	$query_num = "";
-
+    $to_email_array = array();
 	if(isset($_REQUEST['action']) && $_REQUEST['action']=='changeStatus'){
 		$result_update = $dao->update_status_query($_REQUEST['id'], $_REQUEST['status']);
 		$query_list = $dao->getListQueriesByIdForInvestIdAndRecordId($_REQUEST['id']);
 		$updated_query_obj = getQueryFormList($query_list, $_REQUEST['id']);
 		$query_num = $updated_query_obj->id;
 		//$query_list = $dao->update_query_status_and_get_list($_REQUEST['id'], $_REQUEST['status']);
+		
 		if($_REQUEST['status'] == 'resolve'){
 			$to_email_array = $dao->getUserEmailsOfMonitorsAndAdmin();
-			$email_to = implode(",", $to_email_array);
 			$subject = sprintf ( "Уведомление о выполнении Query (запроса) N %s", $_REQUEST['id']);
 			$message = getResolveQueryMessage($updated_query_obj);
 		}elseif ($_REQUEST['status'] == 'close'){
-			$email_to = $dao->getUserEmail($_REQUEST['query_user_email']);
+			$to_email_array = $dao->getUserAndAdminEmails($_REQUEST['query_user_email']);
 			$subject = sprintf ( "Уведомление о закрытии Query (запроса) N %s", $_REQUEST['id']);
 			$message = getCloseQueryMessage($updated_query_obj);
 		}
@@ -114,13 +114,14 @@ try {
 	} else {
 		//сохраняем Query
 		$query_num = $dao->save_query($_POST);
-		$email_to = $dao->getUserEmail($_POST['query_user_email']);
+		$to_email_array = $dao->getUserAndAdminEmails($_POST['query_user_email']);
 		//получаем обновленный список
 		$query_list = $dao->getListQueries($_POST['query_investigation_id'], $_POST['query_record_id']);
 		$message = getCreateQueryMessage($query_num);
 		$subject = sprintf ( "Уведомление об открытии Query (запроса) N %s", $query_num);
 
 	}
+	$email_to = implode(",", $to_email_array);
 	$logger->debug("email_to: " . var_export($email_to, true));
 	$logger->debug("subject: " . $subject);
 	//$logger->debug("message: " . $message);

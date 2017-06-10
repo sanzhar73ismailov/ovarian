@@ -734,6 +734,21 @@ class Dao {
 		}
 		return $emailArray;
 	}
+
+	public function getUserAndAdminEmails($user_email) {
+		$emailArray = array ();
+		if(SEND_MAIL_TO_TEST_ADDR){
+			$emailArray [] = TEST_USER_EMAIL;
+		}else{
+			$emailArray [] = trim($user_email);
+		}
+		$adminUsers = $this->getUsersByRole ( "admin" );
+		foreach ( $adminUsers as $user ) {
+			$emailArray [] = $user->username_email;
+		}
+		return $emailArray;
+	}
+
 	public function getUserEmail($user_email) {
 		if(SEND_MAIL_TO_TEST_ADDR){
 			return TEST_USER_EMAIL;
