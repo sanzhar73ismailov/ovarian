@@ -72,7 +72,7 @@
 				Нет <input {$class_req_input} type="radio" {$disabled} name="treatment_trabect_after_doxorub_yes_no_id" value="0" {if isset($object->treatment_trabect_after_doxorub_yes_no_id) && $object->treatment_trabect_after_doxorub_yes_no_id == 0} checked {/if}/></td>
 				</tr>
 				<tr>
-				<td class='td_label_form'>Пациенты, получившие не более 1 линии химиотерапии платиносодержащими режимами</td>
+				<td class='td_label_form'>Пациенты, получившие 1 и более линий химиотерапии платиносодержащими режимами по поводу рецидива рака яичника при условии, что периоды ремиссии между рецидивами были 6 месяцев и более</td>
 				<td>
 				Да <input {$class_req_input} type="radio" {$disabled} name="received_no_more_one_line_plat_chem_regimes_yes_no_id" value="1" {if isset($object->received_no_more_one_line_plat_chem_regimes_yes_no_id) && $object->received_no_more_one_line_plat_chem_regimes_yes_no_id == 1} checked {/if}/>
 				Нет <input {$class_req_input} type="radio" {$disabled} name="received_no_more_one_line_plat_chem_regimes_yes_no_id" value="0" {if isset($object->received_no_more_one_line_plat_chem_regimes_yes_no_id) && $object->received_no_more_one_line_plat_chem_regimes_yes_no_id == 0} checked {/if}/></td>
