@@ -1,0 +1,281 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="style.css">
+<title>Список пациентов</title>
+<script src="jscript/myScript.js"></script>
+<script src="jscript/myAjax.js"></script>
+<script src="jscript/jquery-1.11.0.min.js"></script>
+<script src="jscript/jquery-ui.min.js"></script>
+<script src="jscript/formWork.js"></script>
+
+
+<script src="jscript/jquery.tablesorter.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function() 
+	    { 
+	        $("#myTable").tablesorter(); 
+	    } 
+	);
+</script>
+</head>
+<body>
+<div id="wrap"><div id="header">
+<h1>Индивидуальная регистрационная карта <br> Исследование по использованию препарата трабектедин (Йонделис®)</h1>
+<p />
+<table width="100%"><tr><td  align="center">
+<table border="1" style="">
+	<tr>
+			<td><a href="index.php"><button>На главную страницу</button></a></td>
+		<td><a href="index.php?page=list"><button>Список пациентов</button></a></td>
+		<td><a href="edit.php?entity=patient&do=edit"><button>Добавить пациента</button></a></td>
+		<td><a href="index.php?page=listQuery"><button>Список Query</button></a></td>
+				<td><a href="index.php?page=listAdversEvent"><button>Список НЯ</button></a></td>
+				
+		
+
+		
+
+		
+		
+		<td><a href="index.php?page=contacts"><button>Контакты</button></a></td>
+		<td><a href="index.php?page=feedback"><button>Обратная связь</button></a></td>
+		
+			<td><a href="index.php?page=logout"><button>Выход</button></a></td>
+		<td>Вы вошли как: <b>sanzhar73@mail.ru</b></td>
+		
+	
+
+	</tr>
+</table>
+</td></tr></table>
+</div>
+
+
+
+
+
+<div id="content">
+
+
+<!--<div class="quick_panel"></div>-->
+<div class="center_title">Список пациентов</div>
+<div class="comment_label">* Для сортировки по столбцу кликните по заголовку этого столбца</div>
+<table class="table_list" id="myTable">
+	<thead>
+		<tr>
+			<th>Номер пациента</th>
+			<th>Номер сайта</th>
+			<th>ФИО исследователя </th>
+			<th>Дата рег.</th>
+			<th>Статус включения</th>
+			<th>Визиты</th>
+		</tr>
+	</thead>
+	<tbody>
+	
+	<tr>
+		<td style="font-size: medium;"><a href="edit.php?entity=patient&id=18">00101</a></td>
+		<td style="font-size: small;">Сайт 001 - Казахский научно-исследовательский институт онкологии и радиологии (КазНИИОиР)</td>
+		<td style="font-size: small;">Пазилов Ш.Т.</td>
+		<td style="font-size: small;">11/03/2017 </td>
+		<td>
+				<span style="color:green;">Включен</span>
+						</td>
+		<td style="font-size: medium;"><a href="index.php?page=visits&patient_id=18">Визиты</a></td>
+<!--		<td>-->
+<!--		<a href="edit.php?entity=investigation&id=0&patient_id=18">Изменить клинические данные</a>-->
+<!--		</td>-->
+	</tr>
+
+
+	
+	<tr>
+		<td style="font-size: medium;"><a href="edit.php?entity=patient&id=20">00501</a></td>
+		<td style="font-size: small;">Сайт 005 - Областной онкологический диспансер ЗКО</td>
+		<td style="font-size: small;">Есенгалиева Р.Б.</td>
+		<td style="font-size: small;">28/03/2017 </td>
+		<td>
+				<span style="color:green;">Включен</span>
+						</td>
+		<td style="font-size: medium;"><a href="index.php?page=visits&patient_id=20">Визиты</a></td>
+<!--		<td>-->
+<!--		<a href="edit.php?entity=investigation&id=0&patient_id=20">Изменить клинические данные</a>-->
+<!--		</td>-->
+	</tr>
+
+
+	
+	<tr>
+		<td style="font-size: medium;"><a href="edit.php?entity=patient&id=21">test_001</a></td>
+		<td style="font-size: small;">Сайт 007 - Восточно-Казахстанский областной онкологический диспансер</td>
+		<td style="font-size: small;">Булатова</td>
+		<td style="font-size: small;">29/03/2017 </td>
+		<td>
+				<span style="color:green;">Включен</span>
+						</td>
+		<td style="font-size: medium;"><a href="index.php?page=visits&patient_id=21">Визиты</a></td>
+<!--		<td>-->
+<!--		<a href="edit.php?entity=investigation&id=0&patient_id=21">Изменить клинические данные</a>-->
+<!--		</td>-->
+	</tr>
+
+
+	
+	<tr>
+		<td style="font-size: medium;"><a href="edit.php?entity=patient&id=22">00801</a></td>
+		<td style="font-size: small;">Сайт 008 - Областной онкологический диспансер СКО</td>
+		<td style="font-size: small;">Булатова</td>
+		<td style="font-size: small;">31/03/2017 </td>
+		<td>
+				<span style="color:green;">Включен</span>
+						</td>
+		<td style="font-size: medium;"><a href="index.php?page=visits&patient_id=22">Визиты</a></td>
+<!--		<td>-->
+<!--		<a href="edit.php?entity=investigation&id=0&patient_id=22">Изменить клинические данные</a>-->
+<!--		</td>-->
+	</tr>
+
+
+	
+	<tr>
+		<td style="font-size: medium;"><a href="edit.php?entity=patient&id=28">00502</a></td>
+		<td style="font-size: small;">Сайт 005 - Областной онкологический диспансер ЗКО</td>
+		<td style="font-size: small;">Есенгалиева Р.Б.</td>
+		<td style="font-size: small;">16/05/2017 </td>
+		<td>
+				<span style="color:green;">Включен</span>
+						</td>
+		<td style="font-size: medium;"><a href="index.php?page=visits&patient_id=28">Визиты</a></td>
+<!--		<td>-->
+<!--		<a href="edit.php?entity=investigation&id=0&patient_id=28">Изменить клинические данные</a>-->
+<!--		</td>-->
+	</tr>
+
+
+	
+	<tr>
+		<td style="font-size: medium;"><a href="edit.php?entity=patient&id=29">00802</a></td>
+		<td style="font-size: small;">Сайт 008 - Областной онкологический диспансер СКО</td>
+		<td style="font-size: small;">Булатова</td>
+		<td style="font-size: small;">05/06/2017 </td>
+		<td>
+				<span style="color:green;">Включен</span>
+						</td>
+		<td style="font-size: medium;"><a href="index.php?page=visits&patient_id=29">Визиты</a></td>
+<!--		<td>-->
+<!--		<a href="edit.php?entity=investigation&id=0&patient_id=29">Изменить клинические данные</a>-->
+<!--		</td>-->
+	</tr>
+
+
+	
+	<tr>
+		<td style="font-size: medium;"><a href="edit.php?entity=patient&id=30">00901</a></td>
+		<td style="font-size: small;">Сайт 009-Алматинский региональный онкологический диспансер</td>
+		<td style="font-size: small;">Ниязбекова К.И.</td>
+		<td style="font-size: small;">06/06/2017 </td>
+		<td>
+				<span style="color:green;">Включен</span>
+						</td>
+		<td style="font-size: medium;"><a href="index.php?page=visits&patient_id=30">Визиты</a></td>
+<!--		<td>-->
+<!--		<a href="edit.php?entity=investigation&id=0&patient_id=30">Изменить клинические данные</a>-->
+<!--		</td>-->
+	</tr>
+
+
+	
+	<tr>
+		<td style="font-size: medium;"><a href="edit.php?entity=patient&id=31">00401</a></td>
+		<td style="font-size: small;">Сайт 004 - Онкологический центр г. Астана</td>
+		<td style="font-size: small;">Сембаев Даурен Рахметолович</td>
+		<td style="font-size: small;">08/06/2017 </td>
+		<td>
+				<span style="color:green;">Включен</span>
+						</td>
+		<td style="font-size: medium;"><a href="index.php?page=visits&patient_id=31">Визиты</a></td>
+<!--		<td>-->
+<!--		<a href="edit.php?entity=investigation&id=0&patient_id=31">Изменить клинические данные</a>-->
+<!--		</td>-->
+	</tr>
+
+
+	
+	<tr>
+		<td style="font-size: medium;"><a href="edit.php?entity=patient&id=32">00301</a></td>
+		<td style="font-size: small;">Сайт 003 - Южно-Казахстанский областной онкологический диспансер</td>
+		<td style="font-size: small;">Арыбжанов Д.Т.</td>
+		<td style="font-size: small;">29/07/2017 </td>
+		<td>
+				<span style="color:green;">Включен</span>
+						</td>
+		<td style="font-size: medium;"><a href="index.php?page=visits&patient_id=32">Визиты</a></td>
+<!--		<td>-->
+<!--		<a href="edit.php?entity=investigation&id=0&patient_id=32">Изменить клинические данные</a>-->
+<!--		</td>-->
+	</tr>
+
+
+	
+	<tr>
+		<td style="font-size: medium;"><a href="edit.php?entity=patient&id=33">00302</a></td>
+		<td style="font-size: small;">Сайт 003 - Южно-Казахстанский областной онкологический диспансер</td>
+		<td style="font-size: small;">Арыбжанов Д.Т.</td>
+		<td style="font-size: small;">29/07/2017 </td>
+		<td>
+				<span style="color:green;">Включен</span>
+						</td>
+		<td style="font-size: medium;"><a href="index.php?page=visits&patient_id=33">Визиты</a></td>
+<!--		<td>-->
+<!--		<a href="edit.php?entity=investigation&id=0&patient_id=33">Изменить клинические данные</a>-->
+<!--		</td>-->
+	</tr>
+
+
+	
+	<tr>
+		<td style="font-size: medium;"><a href="edit.php?entity=patient&id=34">00303</a></td>
+		<td style="font-size: small;">Сайт 003 - Южно-Казахстанский областной онкологический диспансер</td>
+		<td style="font-size: small;">Арыбжанов Д.Т.</td>
+		<td style="font-size: small;">29/07/2017 </td>
+		<td>
+				<span style="color:green;">Включен</span>
+						</td>
+		<td style="font-size: medium;"><a href="index.php?page=visits&patient_id=34">Визиты</a></td>
+<!--		<td>-->
+<!--		<a href="edit.php?entity=investigation&id=0&patient_id=34">Изменить клинические данные</a>-->
+<!--		</td>-->
+	</tr>
+
+
+	
+	<tr>
+		<td style="font-size: medium;"><a href="edit.php?entity=patient&id=35">00503</a></td>
+		<td style="font-size: small;">Сайт 005 - Областной онкологический диспансер ЗКО</td>
+		<td style="font-size: small;">Есенгалиева Р.Б.</td>
+		<td style="font-size: small;">03/08/2017 </td>
+		<td>
+				<span style="color:green;">Включен</span>
+						</td>
+		<td style="font-size: medium;"><a href="index.php?page=visits&patient_id=35">Визиты</a></td>
+<!--		<td>-->
+<!--		<a href="edit.php?entity=investigation&id=0&patient_id=35">Изменить клинические данные</a>-->
+<!--		</td>-->
+	</tr>
+
+
+		</tbody>
+</table>
+
+
+</div>
+
+
+<p>&nbsp</p>
+<div id="footer">
+Индивидуальная регистрационная карта <br> Исследование по использованию препарата трабектедин (Йонделис®) ver. 17.09.29.1
+</div>
+</div>
+</body>
+</html>
