@@ -41,7 +41,7 @@ function send_mail($to, $subject, $message, $fromEmail, $fromDisplayName, $reply
 	 * $result = mail($to, $subject, $message, $headers);
 	 */
 	require_once "SendMailSmtpClass.php"; // подключаем класс
-	$mailSMTP = new SendMailSmtpClass ( 'sanzhar73@mail.ru', 'qweasd111!', 'ssl://smtp.mail.ru', 'Sanzhar', 465 ); // создаем экземпляр класса
+	$mailSMTP = new SendMailSmtpClass ( 'sanzhar73@mail.ru', MAIL_P, 'ssl://smtp.mail.ru', 'Sanzhar', 465 ); // создаем экземпляр класса
 	// $mailSMTP = new SendMailSmtpClass('логин', 'пароль', 'хост', 'имя отправителя');
 
 	// заголовок письма
