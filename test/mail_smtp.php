@@ -1,7 +1,7 @@
 <?php
 // the message
 
-$to = "javajan@mail.ru,sanzhar73@mail.ru,sanzhar@yahoo.com,sender@oncojournal.kz,sanzhar73@gmail.com";
+$to = "javajan@mail.ru,sanzhar73@mail.ru,sanzhar@yahoo.com,sanzhar73@gmail.com";
 //$to = "javajan@mail.ru";
 
 //$res = smtpmail('Имя получателя', 'email-получателя@mail.ru', 'Тема письма', 'HTML или обычный текст письма');
@@ -12,7 +12,7 @@ require_once "SendMailSmtpClass.php"; // подключаем класс
 
 $ver = 1;
   
-$mailSMTP = new SendMailSmtpClass('sanzhar73@mail.ru', 'qweasd111!', 'ssl://smtp.mail.ru', 'Sanzhar', 465); // создаем экземпляр класса
+$mailSMTP = new SendMailSmtpClass('sanzhar73@mail.ru', 'IliveinKrakow+', 'ssl://smtp.mail.ru', 'Sanzhar', 465); // создаем экземпляр класса
 // $mailSMTP = new SendMailSmtpClass('логин', 'пароль', 'хост', 'имя отправителя');
   
 // заголовок письма
