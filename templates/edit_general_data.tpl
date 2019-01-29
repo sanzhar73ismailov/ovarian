@@ -562,7 +562,7 @@ value="0" {if isset($object->metastases_plevra_yes_no_id) && $object->metastases
 <td>
 Да <input type="radio" {$disabled} name="chem_2st_trabectedin_yes_no_id" size="50" value="1" {if isset($object->chem_2st_trabectedin_yes_no_id) && $object->chem_2st_trabectedin_yes_no_id == 1} checked {/if}/>
 Нет <input type="radio" {$disabled} name="chem_2st_trabectedin_yes_no_id" size="50" value="0" {if isset($object->chem_2st_trabectedin_yes_no_id) && $object->chem_2st_trabectedin_yes_no_id == 0} checked {/if}/>
-Доза <input type="text" {$readonly} name="chem_2st_trabectedin_dose" size="50" value="{$object->chem_2st_trabectedin_dose}"/>
+Доза <input type="number" step="0.01" {$readonly} name="chem_2st_trabectedin_dose" size="50" value="{$object->chem_2st_trabectedin_dose}"/>
 </td>
 </tr>
 <tr>
@@ -570,7 +570,7 @@ value="0" {if isset($object->metastases_plevra_yes_no_id) && $object->metastases
 <td>
 Да <input type="radio" {$disabled} name="chem_2st_pld_yes_no_id" size="50" value="1" {if isset($object->chem_2st_pld_yes_no_id) && $object->chem_2st_pld_yes_no_id == 1} checked {/if}/>
 Нет <input type="radio" {$disabled} name="chem_2st_pld_yes_no_id" size="50" value="0" {if isset($object->chem_2st_pld_yes_no_id) && $object->chem_2st_pld_yes_no_id == 0} checked {/if}/>
-Доза <input type="text" {$readonly} name="chem_2st_pld_dose" size="50" value="{$object->chem_2st_pld_dose}"/>
+Доза <input type="number" step="0.01" {$readonly} name="chem_2st_pld_dose" size="50" value="{$object->chem_2st_pld_dose}"/>
 </td>
 </tr>
 <tr>
@@ -578,7 +578,7 @@ value="0" {if isset($object->metastases_plevra_yes_no_id) && $object->metastases
 <td>
 Да <input type="radio" {$disabled} name="chem_2st_doxopeg_yes_no_id" size="50" value="1" {if isset($object->chem_2st_doxopeg_yes_no_id) && $object->chem_2st_doxopeg_yes_no_id == 1} checked {/if}/>
 Нет <input type="radio" {$disabled} name="chem_2st_doxopeg_yes_no_id" size="50" value="0" {if isset($object->chem_2st_doxopeg_yes_no_id) && $object->chem_2st_doxopeg_yes_no_id == 0} checked {/if}/>
-Доза <input type="text" {$readonly} name="chem_2st_doxopeg_dose" size="50" value="{$object->chem_2st_doxopeg_dose}"/>
+Доза <input type="number" step="0.01" {$readonly} name="chem_2st_doxopeg_dose" size="50" value="{$object->chem_2st_doxopeg_dose}"/>
 </td>
 </tr>
 <tr>
@@ -586,7 +586,7 @@ value="0" {if isset($object->metastases_plevra_yes_no_id) && $object->metastases
 <td>
 Да <input type="radio" {$disabled} name="chem_2st_kelix_yes_no_id" size="50" value="1" {if isset($object->chem_2st_kelix_yes_no_id) && $object->chem_2st_kelix_yes_no_id == 1} checked {/if}/>
 Нет <input type="radio" {$disabled} name="chem_2st_kelix_yes_no_id" size="50" value="0" {if isset($object->chem_2st_kelix_yes_no_id) && $object->chem_2st_kelix_yes_no_id == 0} checked {/if}/>
-Доза <input type="text" {$readonly} name="chem_2st_kelix_dose" size="50" value="{$object->chem_2st_kelix_dose}"/>
+Доза <input type="number" step="0.01" {$readonly} name="chem_2st_kelix_dose" size="50" value="{$object->chem_2st_kelix_dose}"/>
 </td>
 </tr>
 <tr>
@@ -594,7 +594,7 @@ value="0" {if isset($object->metastases_plevra_yes_no_id) && $object->metastases
 <td>
 Да <input type="radio" {$disabled} name="chem_2st_doksorubicin_yes_no_id" size="50" value="1" {if isset($object->chem_2st_doksorubicin_yes_no_id) && $object->chem_2st_doksorubicin_yes_no_id == 1} checked {/if}/>
 Нет <input type="radio" {$disabled} name="chem_2st_doksorubicin_yes_no_id" size="50" value="0" {if isset($object->chem_2st_doksorubicin_yes_no_id) && $object->chem_2st_doksorubicin_yes_no_id == 0} checked {/if}/>
-Доза <input type="text" {$readonly} name="chem_2st_doksorubicin_dose" size="50" value="{$object->chem_2st_doksorubicin_dose}"/>
+Доза <input type="number" step="0.01" {$readonly} name="chem_2st_doksorubicin_dose" size="50" value="{$object->chem_2st_doksorubicin_dose}"/>
 </td>
 </tr>
 <tr>
@@ -602,7 +602,7 @@ value="0" {if isset($object->metastases_plevra_yes_no_id) && $object->metastases
 <td>
 Да <input type="radio" {$disabled} name="chem_2st_other_yes_no_id" size="50" value="1" {if isset($object->chem_2st_other_yes_no_id) && $object->chem_2st_other_yes_no_id == 1} checked {/if}/>
 Нет <input type="radio" {$disabled} name="chem_2st_other_yes_no_id" size="50" value="0" {if isset($object->chem_2st_other_yes_no_id) && $object->chem_2st_other_yes_no_id == 0} checked {/if}/>
-Доза <input type="text" {$readonly} name="chem_2st_other_dose" size="50" value="{$object->chem_2st_other_dose}"/>
+Доза <input type="number" step="0.01" {$readonly} name="chem_2st_other_dose" size="50" value="{$object->chem_2st_other_dose}"/>
 </td>
 </tr>
 <tr>
