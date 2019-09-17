@@ -2887,5 +2887,25 @@ class Dao {
 		}
 		return true;
 	}
+    
+	public function getDataByNativeSql($sql) {
+		$results = array ();
+		$arrayReturn = array ();
+		//$query = sprintf ( 'SELECT DISTINCT(%1$s) as name from kras_patient WHERE %1$s is not null ORDER BY %1$s', $column );
+		try {
+			$stmt = $this->pdo->query ( $sql );
+			return $stmt->fetchAll ( PDO::FETCH_ASSOC );
+		} catch ( PDOException $ex ) {
+			echo "Ошибка:" . $ex->getMessage ();
+			$this->log->error($ex);
+		}
+		return $results;
+	}
+	
+	
+	public function getListInvestVisitByInvestId($invest_id) {
+		return $this->visitDao->getListInvestVisitByInvestId($invest_id);
+	}
+
 }
 ?>

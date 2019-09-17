@@ -36,7 +36,7 @@ class VisitDao {
 		return $table;
 	}
 
-	private function getListInvestVisitByInvestId($id){
+	public function getListInvestVisitByInvestId($id){
 		$results = array();
 		$arrayReturn = array();
 		$query = sprintf("SELECT * from ovarian_investigation_visit WHERE investigation_id='%s' ORDER BY visit_id", $id);
