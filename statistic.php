@@ -9,20 +9,20 @@ $logger = Logger::getLogger("statistic.php");
 for ($i = 1; $i < 8; $i++) {
 	if($i != 1)
 		continue;
-	
-	$invest = $dao->getInvestigation($i);
-	$invest_id = $invest['id'];
-	$invest_name = $invest['name'];
-	echo "<h2>* $invest_name.</h2>";
-	
-	$query = "SELECT column_name, column_comment, data_type FROM information_schema.columns c " .
-     " WHERE table_schema = 'ovarian' AND TABLE_NAME = '$invest_name' ORDER BY c.ORDINAL_POSITION";
-	$columns = $dao->getDataByNativeSql($query);
-	//printLabels($columns);
-	printValues($columns, $dao);
-	
-	//printLabelsForPairStat($dao, $invest_id, $columns);
-	
+		
+		$invest = $dao->getInvestigation($i);
+		$invest_id = $invest['id'];
+		$invest_name = $invest['name'];
+		echo "<h2>* $invest_name.</h2>";
+		
+		$query = "SELECT column_name, column_comment, data_type FROM information_schema.columns c " .
+				" WHERE table_schema = 'ovarian' AND TABLE_NAME = '$invest_name' ORDER BY c.ORDINAL_POSITION";
+		$columns = $dao->getDataByNativeSql($query);
+		//printLabels($columns);
+		printValues($columns, $dao);
+		
+		//printLabelsForPairStat($dao, $invest_id, $columns);
+		
 }
 
 function printLabels($columns) {
@@ -43,8 +43,8 @@ function printLabels($columns) {
 		echo "$column_name \"$column_comment\"";
 		if ($i < count($columns))
 			echo ",<br/>";
-		else
-			echo ".<p/>";
+			else
+				echo ".<p/>";
 				
 	}
 	
@@ -67,26 +67,26 @@ function printValues($columns, $dao) {
 			continue;
 		}
 		$columns_id_count++;
-// 		echo "$column_name \"$column_comment\"<br/>";
+		// 		echo "$column_name \"$column_comment\"<br/>";
 		if($columns_id_count > 1)
 			echo "/";
-		echo "$column_name<br/>";
-		
-		//$table_res = $dao->getDataByNativeSql($query);
-		
-		$dicVals = $dao->getDicValues ( $column_name );
-		$dic_count = 0;
-		foreach ( $dicVals as $dic ) {
-			$dic_count++;
-			echo $dic->id . " \"" . $dic->value . "\"";
-			if ($dic_count < count($dicVals))
-				echo ",<br/>";
-			else
-				echo "<br/>";
+			echo "$column_name<br/>";
 			
-
-		}
-		
+			//$table_res = $dao->getDataByNativeSql($query);
+			
+			$dicVals = $dao->getDicValues ( $column_name );
+			$dic_count = 0;
+			foreach ( $dicVals as $dic ) {
+				$dic_count++;
+				echo $dic->id . " \"" . $dic->value . "\"";
+				if ($dic_count < count($dicVals))
+					echo ",<br/>";
+					else
+						echo "<br/>";
+						
+						
+			}
+			
 			
 	}
 	echo ".";
@@ -94,11 +94,11 @@ function printValues($columns, $dao) {
 }
 //
 function printLabelsForPairStat($dao, $invest_id, $columns){
-// 	$query = "SELECT column_name, column_comment, data_type
-//         FROM information_schema.columns c
-//      WHERE table_schema = 'ovarian' AND TABLE_NAME = '$invest_name'
-//      ORDER BY c.ORDINAL_POSITION";
-// 	$columns = $dao->getDataByNativeSql($query);
+	// 	$query = "SELECT column_name, column_comment, data_type
+	//         FROM information_schema.columns c
+	//      WHERE table_schema = 'ovarian' AND TABLE_NAME = '$invest_name'
+	//      ORDER BY c.ORDINAL_POSITION";
+	// 	$columns = $dao->getDataByNativeSql($query);
 	$insvestVizits = $dao->getListInvestVisitByInvestId($invest_id);
 	var_dump($insvestVizits);
 	if (1) return ;
