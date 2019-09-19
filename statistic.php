@@ -6,8 +6,15 @@ Logger::configure ( 'config.xml' );
 include_once 'includes/global.php';
 $logger = Logger::getLogger ( "statistic.php" );
 
+// $arr = array("as"=>"cval1");
+// echo $arr["as"];
+// var_dump (array_key_exists("as", $arr));
+// var_dump ( array_key_exists("ss", $arr));
+
+// exit();
+ 
 for($i = 1; $i < 8; $i ++) {
-	if ($i != 1)
+	if ($i != 2)
 		continue;
 	
 	$invest = $dao->getInvestigation ( $i );
@@ -18,12 +25,15 @@ for($i = 1; $i < 8; $i ++) {
 	$query = "SELECT column_name, column_comment, data_type FROM information_schema.columns c " . " WHERE table_schema = 'ovarian' AND TABLE_NAME = '$invest_name' ORDER BY c.ORDINAL_POSITION";
 	$columns = $dao->getDataByNativeSql ( $query );
 	// printLabels($columns);
-	// printValues ( $columns, $dao );
-	//printMissingValues ( $columns );
-	//printFrequencyStat ( $columns );
-	printDescrStatAndKomogor ( $columns );
+	printValues ( $columns, $dao );
+	// printMissingValues ( $columns );
+	// printFrequencyStat ( $columns );
+	//printDescrStatAndKomogor ( $columns );
 	
-	// printLabelsForPairStat($dao, $invest_id, $columns);
+	$generatePairColumns = generatePairColumns($dao, $invest_id, $columns);
+	//printLabels($generatePairColumns);
+	//printValues ( $generatePairColumns, $dao );
+	
 }
 function printLabels($columns) {
 	echo "VARIABLE LABELS<br/>";
@@ -51,7 +61,12 @@ function printValues($columns, $dao) {
 	echo "VALUE LABELS<br/>";
 	$columns_id_count = 0;
 	for($i = 0; $i < count ( $columns ); $i ++) {
+		
+		//var_dump($columns [$i]);
+		//if(1)
+		//	continue;
 		$row = $columns [$i];
+		$ref_column = array_key_exists("ref_column", $row) ? $row["ref_column"] : "";
 		$column_name = $row ['column_name'];
 		
 		$skipedCols = array (
@@ -62,7 +77,7 @@ function printValues($columns, $dao) {
 			continue;
 		}
 		
-		if (! endsWithId ( $column_name )) {
+		if (! endsWithId ( $column_name ) and !strpos($column_name, "_id.")) {
 			continue;
 		}
 		$columns_id_count ++;
@@ -73,7 +88,8 @@ function printValues($columns, $dao) {
 		
 		// $table_res = $dao->getDataByNativeSql($query);
 		
-		$dicVals = $dao->getDicValues ( $column_name );
+		$ref_dic_column = $ref_column ? $ref_column : $column_name;
+		$dicVals = $dao->getDicValues ( $ref_dic_column );
 		$dic_count = 0;
 		foreach ( $dicVals as $dic ) {
 			$dic_count ++;
@@ -157,7 +173,6 @@ function printFrequencyStat($columns) {
 	echo ".<p/>";
 }
 function printDescrStatAndKomogor($columns) {
-	
 	$columns_filtered = array ();
 	foreach ( $columns as $row ) {
 		$data_type = $row ['data_type'];
@@ -166,7 +181,7 @@ function printDescrStatAndKomogor($columns) {
 		$numberDataTypes = array (
 				"int",
 				"double",
-				"float"
+				"float" 
 		);
 		
 		if (! in_array ( $data_type, $numberDataTypes )) {
@@ -177,7 +192,7 @@ function printDescrStatAndKomogor($columns) {
 				"id",
 				"patient_id",
 				"visit_id",
-				"checked"
+				"checked" 
 		);
 		if (in_array ( $column_name, $skipedCols )) {
 			continue;
@@ -207,12 +222,12 @@ function printDescrStatAndKomogor($columns) {
 	echo ".<p/>";
 	$columns_id_count = 0;
 	/*
-	NPAR TESTS
-	/K-S(NORMAL)=date_birth weight_kg
-	/STATISTICS DESCRIPTIVES
-	/MISSING ANALYSIS.
-	 * */
-
+	 * NPAR TESTS
+	 * /K-S(NORMAL)=date_birth weight_kg
+	 * /STATISTICS DESCRIPTIVES
+	 * /MISSING ANALYSIS.
+	 */
+	
 	echo "NPAR TESTS<br/>";
 	echo "K-S(NORMAL)=<br/>";
 	for($i = 0; $i < count ( $columns_filtered ); $i ++) {
@@ -230,32 +245,59 @@ function printDescrStatAndKomogor($columns) {
 	}
 	echo ".<p/>";
 }
-function printLabelsForPairStat($dao, $invest_id, $columns) {
+function generatePairColumns($dao, $invest_id, $columns) {
 	// $query = "SELECT column_name, column_comment, data_type
 	// FROM information_schema.columns c
 	// WHERE table_schema = 'ovarian' AND TABLE_NAME = '$invest_name'
 	// ORDER BY c.ORDINAL_POSITION";
 	// $columns = $dao->getDataByNativeSql($query);
 	$insvestVizits = $dao->getListInvestVisitByInvestId ( $invest_id );
-	var_dump ( $insvestVizits );
-	if (1)
-		return;
+	//var_dump ( $insvestVizits );
+	//if (1)
+	//	return;
+	$generated_columns = array();
 	for($i = 0; $i < count ( $columns ); $i ++) {
 		$row = $columns [$i];
 		// var_dump($row);
 		$column_name = $row ['column_name'];
+		$column_comment = $row ['column_comment'];
+		$data_type = $row ['data_type'];
+		
+		$numberDataTypes = array (
+				"int",
+				"double",
+				"float"
+		);
+		
+		if (! in_array ( $data_type, $numberDataTypes )) {
+			continue;
+		}
 		
 		$skipedCols = array (
+				"id",
 				"patient_id",
-				"visit_id" 
+				"visit_id",
+				"checked"
 		);
 		if (in_array ( $column_name, $skipedCols )) {
 			continue;
 		}
-		
-		if (! endsWithId ( $column_name )) {
-			continue;
+		foreach ($insvestVizits as $invest) {
+			$carried = (int) $invest['carried'];
+			if(!$carried)
+				continue;
+			$visit_id = $invest['visit_id'];
+			$colName = $column_name . "." . $visit_id;
+			$columnNew = array();
+			$columnNew['column_name'] =  $colName;
+			$columnNew['ref_column'] = $column_name;
+			$columnNew['data_type'] = $data_type;
+			$columnNew['column_comment']=$column_comment . ". Визит $visit_id";
+			$generated_columns[] = $columnNew;
+			//var_dump($columnNew);
+			
 		}
 	}
+	return $generated_columns;
 }
 
