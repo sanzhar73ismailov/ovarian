@@ -24,29 +24,38 @@ for($i = 1; $i < 8; $i ++) {
 	
 	$query = "SELECT column_name, column_comment, data_type FROM information_schema.columns c " . " WHERE table_schema = 'ovarian' AND TABLE_NAME = '$invest_name' ORDER BY c.ORDINAL_POSITION";
 	$columns = $dao->getDataByNativeSql ( $query );
-	printLabels ( $columns );
-	printValues ( $columns, $dao );
-	printMissingValues ( $columns );
-	
-	if ($i > 1) {
-		echo "SORT CASES  BY visit_id.<br/>";
-		echo "SPLIT FILE LAYERED BY visit_id.<br/>";
+	if (0) {
+		printLabels ( $columns );
+		printValues ( $columns, $dao );
+		printMissingValues ( $columns );
+		
+		if ($i > 1) {
+			echo "SORT CASES  BY visit_id.<br/>";
+			echo "SPLIT FILE LAYERED BY visit_id.<p/>";
+		}
+		
+		printFrequencyStat ( $columns );
+		printDescrStatAndKomogor ( $columns );
+		if ($i > 1) {
+			echo "SPLIT FILE OFF.<p/>";
+		}
+		
+		if ($i > 1) {
+			printCrossTab ( $columns );
+		}
 	}
-
-	printFrequencyStat ( $columns );
-	printDescrStatAndKomogor ( $columns );
 	
-	if ($i > 1) {
-		echo "SPLIT FILE OFF.<p/>";
+	if (1) {
+		$twoDimPairColumns = generatePairColumns ( $dao, $invest_id, $columns );
+		
+		$pairColumns = transformToOneDimArray ( $twoDimPairColumns );
+		// var_dump($twoDimPairColumns);
+		//var_dump ( $pairColumns );
+		// printLabels ( $pairColumns );
+		// printValues ( $pairColumns, $dao );
+		// printMissingValues ( $pairColumns );
+		printFridmanTest($twoDimPairColumns);
 	}
-	
-	if ($i > 1) {
-	 printCrossTab($columns);
-	}
-	
-	// $generatePairColumns = generatePairColumns($dao, $invest_id, $columns);
-	// printLabels($generatePairColumns);
-	// printValues ( $generatePairColumns, $dao );
 }
 function printLabels($columns) {
 	echo "VARIABLE LABELS<br/>";
@@ -57,10 +66,14 @@ function printLabels($columns) {
 		$column_name = $row ['column_name'];
 		$column_comment = $row ['column_comment'];
 		$data_type = $row ['data_type'];
+		if ($column_name == 'id')
+			continue;
 		if ($column_name == 'visit_id') {
 			$column_comment = 'Визит';
 		} elseif ($column_name == 'insert_date') {
 			$column_comment = 'Дата регистрации';
+		} elseif ($column_name == 'user') {
+			$column_comment = 'Пользователь';
 		}
 		
 		echo "$column_name \"$column_comment\"";
@@ -71,20 +84,17 @@ function printLabels($columns) {
 	}
 }
 function printValues($columns, $dao) {
-	echo "VALUE LABELS<br/>";
+	echo "<p/>VALUE LABELS<br/>";
 	$columns_id_count = 0;
+	$columns_filtered = array ();
+	
 	for($i = 0; $i < count ( $columns ); $i ++) {
-		
-		// var_dump($columns [$i]);
-		// if(1)
-		// continue;
 		$row = $columns [$i];
-		$ref_column = array_key_exists ( "ref_column", $row ) ? $row ["ref_column"] : "";
 		$column_name = $row ['column_name'];
-		
 		$skipedCols = array (
 				"patient_id",
-				"visit_id" 
+				"visit_id",
+				"id" 
 		);
 		if (in_array ( $column_name, $skipedCols )) {
 			continue;
@@ -93,14 +103,16 @@ function printValues($columns, $dao) {
 		if (! endsWithId ( $column_name ) and ! strpos ( $column_name, "_id." )) {
 			continue;
 		}
+		$columns_filtered [] = $row;
+	}
+	for($i = 0; $i < count ( $columns_filtered ); $i ++) {
+		$row = $columns_filtered [$i];
+		$ref_column = array_key_exists ( "ref_column", $row ) ? $row ["ref_column"] : "";
+		$column_name = $row ['column_name'];
 		$columns_id_count ++;
-		// echo "$column_name \"$column_comment\"<br/>";
 		if ($columns_id_count > 1)
 			echo "/";
 		echo "$column_name<br/>";
-		
-		// $table_res = $dao->getDataByNativeSql($query);
-		
 		$ref_dic_column = $ref_column ? $ref_column : $column_name;
 		$dicVals = $dao->getDicValues ( $ref_dic_column );
 		$dic_count = 0;
@@ -109,24 +121,35 @@ function printValues($columns, $dao) {
 			echo $dic->id . " \"" . $dic->value . "\"";
 			if ($dic_count < count ( $dicVals ))
 				echo ",<br/>";
-			else
+			else if ($columns_id_count < count ( $columns_filtered )) {
 				echo "<br/>";
+			}
+		}
+		if ($columns_id_count == count ( $columns_filtered )) {
+			echo ".<p/>";
 		}
 	}
-	echo ".<p/>";
 }
 function printMissingValues($columns) {
-	echo "MISSING VALUES<br/>";
+	echo "<p/>MISSING VALUES<br/>";
 	$columns_filtered = array ();
 	foreach ( $columns as $row ) {
 		$data_type = $row ['data_type'];
-		// echo $row ['data_type'] . "<br/>";
+		$column_name = $row ['column_name'];
 		
 		$numberDataTypes = array (
 				"int",
 				"double",
 				"float" 
 		);
+		
+		$skipedCols = array (
+				"id",
+				"checked" 
+		);
+		if (in_array ( $column_name, $skipedCols )) {
+			continue;
+		}
 		
 		if (! in_array ( $data_type, $numberDataTypes )) {
 			continue;
@@ -150,7 +173,6 @@ function printMissingValues($columns) {
 	echo ".<p/>";
 }
 function printFrequencyStat($columns) {
-	echo "FREQUENCIES VARIABLES=<br/>";
 	$columns_filtered = array ();
 	foreach ( $columns as $row ) {
 		$data_type = $row ['data_type'];
@@ -170,6 +192,11 @@ function printFrequencyStat($columns) {
 		$columns_filtered [] = $row;
 	}
 	$columns_id_count = 0;
+	if (! $columns_filtered) {
+		echo "<p/>*FREQUENCIES VARIABLES - No parameters.<br/>";
+	} else {
+		echo "<p/>FREQUENCIES VARIABLES=<br/>";
+	}
 	for($i = 0; $i < count ( $columns_filtered ); $i ++) {
 		$row = $columns_filtered [$i];
 		$column_name = $row ['column_name'];
@@ -218,7 +245,12 @@ function printDescrStatAndKomogor($columns) {
 		$columns_filtered [] = $row;
 	}
 	$columns_id_count = 0;
-	echo "DESCRIPTIVES VARIABLES=<br/>";
+	if (! $columns_filtered) {
+		echo "<p/>*DESCRIPTIVES VARIABLES - No parameters.<br/>";
+	} else {
+		echo "<p/>DESCRIPTIVES VARIABLES=<br/>";
+	}
+	
 	for($i = 0; $i < count ( $columns_filtered ); $i ++) {
 		$row = $columns_filtered [$i];
 		$column_name = $row ['column_name'];
@@ -230,9 +262,10 @@ function printDescrStatAndKomogor($columns) {
 			echo "<br/>";
 		} else {
 			echo "<br/>   /STATISTICS=MEAN STDDEV VARIANCE RANGE MIN MAX SEMEAN";
+			echo ".<p/>";
 		}
 	}
-	echo ".<p/>";
+	
 	$columns_id_count = 0;
 	/*
 	 * NPAR TESTS
@@ -240,9 +273,13 @@ function printDescrStatAndKomogor($columns) {
 	 * /STATISTICS DESCRIPTIVES
 	 * /MISSING ANALYSIS.
 	 */
+	if (! $columns_filtered) {
+		echo "<p/>*Kolmogor-Smirnov NPAR TESTS - No parameters.<br/>";
+	} else {
+		echo "<p/>NPAR TESTS<br/>";
+		echo "K-S(NORMAL)=<br/>";
+	}
 	
-	echo "NPAR TESTS<br/>";
-	echo "K-S(NORMAL)=<br/>";
 	for($i = 0; $i < count ( $columns_filtered ); $i ++) {
 		$row = $columns_filtered [$i];
 		$column_name = $row ['column_name'];
@@ -254,11 +291,10 @@ function printDescrStatAndKomogor($columns) {
 			echo "<br/>";
 		} else {
 			echo "<br/> /MISSING ANALYSIS";
+			echo ".<p/>";
 		}
 	}
-	echo ".<p/>";
 }
-
 function printCrossTab($columns) {
 	$columns_filtered = array ();
 	foreach ( $columns as $row ) {
@@ -267,7 +303,7 @@ function printCrossTab($columns) {
 		
 		$skipedCols = array (
 				"patient_id",
-				"visit_id"
+				"visit_id" 
 		);
 		if (in_array ( $column_name, $skipedCols )) {
 			continue;
@@ -277,6 +313,9 @@ function printCrossTab($columns) {
 			continue;
 		}
 		$columns_filtered [] = $row;
+	}
+	if (! $columns_filtered) {
+		echo "<p/>*CROSSTABS - No parameters.<br/>";
 	}
 	$columns_id_count = 0;
 	for($i = 0; $i < count ( $columns_filtered ); $i ++) {
@@ -294,17 +333,8 @@ function printCrossTab($columns) {
 	}
 	echo ".<p/>";
 }
-
 function generatePairColumns($dao, $invest_id, $columns) {
-	// $query = "SELECT column_name, column_comment, data_type
-	// FROM information_schema.columns c
-	// WHERE table_schema = 'ovarian' AND TABLE_NAME = '$invest_name'
-	// ORDER BY c.ORDINAL_POSITION";
-	// $columns = $dao->getDataByNativeSql($query);
 	$insvestVizits = $dao->getListInvestVisitByInvestId ( $invest_id );
-	// var_dump ( $insvestVizits );
-	// if (1)
-	// return;
 	$generated_columns = array ();
 	for($i = 0; $i < count ( $columns ); $i ++) {
 		$row = $columns [$i];
@@ -332,6 +362,8 @@ function generatePairColumns($dao, $invest_id, $columns) {
 		if (in_array ( $column_name, $skipedCols )) {
 			continue;
 		}
+		$columns_in_group = array ();
+		
 		foreach ( $insvestVizits as $invest ) {
 			$carried = ( int ) $invest ['carried'];
 			if (! $carried)
@@ -343,10 +375,35 @@ function generatePairColumns($dao, $invest_id, $columns) {
 			$columnNew ['ref_column'] = $column_name;
 			$columnNew ['data_type'] = $data_type;
 			$columnNew ['column_comment'] = $column_comment . ". Визит $visit_id";
-			$generated_columns [] = $columnNew;
-			// var_dump($columnNew);
+			$columns_in_group [] = $columnNew;
 		}
+		$generated_columns [$column_name] = $columns_in_group;
 	}
 	return $generated_columns;
 }
-
+function transformToOneDimArray($generatePairColumns) {
+	$arr = array ();
+	foreach ( $generatePairColumns as $group ) {
+		foreach ( $group as $col ) {
+			$arr [] = $col;
+		}
+	}
+	return $arr;
+}
+function printFridmanTest($twoDimPairColumns) {
+	/*
+	 * NPAR TESTS
+	 * /FRIEDMAN=instr_mrt_date.1 instr_mrt_date.4 instr_mrt_date.7 instr_mrt_date.8
+	 * /STATISTICS DESCRIPTIVES QUARTILES
+	 * /MISSING LISTWISE.
+	 */
+	foreach ( $twoDimPairColumns as $group ) {
+		echo "NPAR TESTS<br/>";
+		echo "/FRIEDMAN=";
+		foreach ( $group as $col ) {
+			echo $col['column_name'] . " ";
+		}
+		echo "<br/>/STATISTICS DESCRIPTIVES QUARTILES<br/>";
+		echo "/MISSING LISTWISE.<br/>";
+	}
+}
