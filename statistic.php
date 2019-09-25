@@ -14,7 +14,7 @@ $logger = Logger::getLogger ( "statistic.php" );
 // exit();
 
 for($i = 1; $i < 8; $i ++) {
-	if ($i != 2)
+	if ($i != 7)
 		continue;
 	
 	$invest = $dao->getInvestigation ( $i );
@@ -24,7 +24,7 @@ for($i = 1; $i < 8; $i ++) {
 	
 	$query = "SELECT column_name, column_comment, data_type FROM information_schema.columns c " . " WHERE table_schema = 'ovarian' AND TABLE_NAME = '$invest_name' ORDER BY c.ORDINAL_POSITION";
 	$columns = $dao->getDataByNativeSql ( $query );
-	if (0) {
+	if (1) {
 		printLabels ( $columns );
 		printValues ( $columns, $dao );
 		printMissingValues ( $columns );
@@ -45,15 +45,13 @@ for($i = 1; $i < 8; $i ++) {
 		}
 	}
 	
-	if (1) {
+	if (0) {
 		$twoDimPairColumns = generatePairColumns ( $dao, $invest_id, $columns );
 		
 		$pairColumns = transformToOneDimArray ( $twoDimPairColumns );
-		// var_dump($twoDimPairColumns);
-		//var_dump ( $pairColumns );
-		// printLabels ( $pairColumns );
-		// printValues ( $pairColumns, $dao );
-		// printMissingValues ( $pairColumns );
+		printLabels ( $pairColumns );
+		printValues ( $pairColumns, $dao );
+		printMissingValues ( $pairColumns );
 		printFridmanTest($twoDimPairColumns);
 	}
 }
@@ -397,7 +395,10 @@ function printFridmanTest($twoDimPairColumns) {
 	 * /STATISTICS DESCRIPTIVES QUARTILES
 	 * /MISSING LISTWISE.
 	 */
-	foreach ( $twoDimPairColumns as $group ) {
+	foreach ( $twoDimPairColumns as $grName => $group ) {
+		if (endsWithId ( $grName )) {
+			continue;
+		}
 		echo "NPAR TESTS<br/>";
 		echo "/FRIEDMAN=";
 		foreach ( $group as $col ) {
