@@ -1,6 +1,6 @@
 GET DATA 
   /TYPE=XLS 
-  /FILE='C:\temp\ovarian_stat_20190910\08_ovarian_concomitant_therapy.xls' 
+  /FILE='C:\temp\ovarian_stat_20190910\data\08_ovarian_concomitant_therapy.xls' 
   /SHEET=name 'Sheet 1' 
   /CELLRANGE=full 
   /READNAMES=on 
@@ -24,7 +24,7 @@ visit_id (-1).
 SORT CASES BY visit_id.
 SPLIT FILE LAYERED BY visit_id.
 
-FREQUENCIES VARIABLES=chem_2st_concomitant_therapy_descr
+FREQUENCIES VARIABLES=visit_id
   /ORDER=ANALYSIS.
 
 *DESCRIPTIVES VARIABLES - No parameters.

@@ -1,6 +1,6 @@
 GET DATA 
   /TYPE=XLS 
-  /FILE='C:\temp\ovarian_stat_20190910\00_ovarian_patient.xls' 
+  /FILE='C:\temp\ovarian_stat_20190910\data\00_ovarian_patient.xls' 
   /SHEET=name 'Sheet 1' 
   /CELLRANGE=full 
   /READNAMES=on 
@@ -48,7 +48,7 @@ SPLIT FILE OFF.
 
 GET DATA
   /TYPE=XLS
-  /FILE='C:\temp\ovarian_stat_20190910\01_ovarian_inclusion.xls'
+  /FILE='C:\temp\ovarian_stat_20190910\data\01_ovarian_inclusion.xls'
   /SHEET=name 'Sheet 1'
   /CELLRANGE=full
   /READNAMES=on

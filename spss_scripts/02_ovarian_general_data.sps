@@ -1,6 +1,6 @@
 GET DATA 
   /TYPE=XLS 
-  /FILE='C:\temp\ovarian_stat_20190910\02_ovarian_general_data.xls' 
+  /FILE='C:\temp\ovarian_stat_20190910\data\02_ovarian_general_data.xls' 
   /SHEET=name 'Sheet 1' 
   /CELLRANGE=full 
   /READNAMES=on 
@@ -123,7 +123,6 @@ undesirable_event_yes_no_id "Нежелательное явление (да, нет) - Отмечал ли пациен
 checked "Проверено монитором",
 user "",
 insert_date "Дата регистрации".
-.
 VALUE LABELS
 nationality_id
 1 "казахи",
@@ -338,8 +337,7 @@ nationality_id
 0 "нет"
 /undesirable_event_yes_no_id
 1 "да",
-0 "нет"
-.
+0 "нет".
 
 MISSING VALUES
 id
@@ -515,3 +513,10 @@ chem_2st_kelix_dose
 chem_2st_doksorubicin_dose
 chem_2st_other_dose
 /MISSING ANALYSIS.
+
+* Экспортировать вывод.
+OUTPUT EXPORT
+  /CONTENTS  EXPORT=VISIBLE  LAYERS=PRINTSETTING  MODELVIEWS=PRINTSETTING
+  /XLS  DOCUMENTFILE='C:\temp\ovarian_stat_20190910\report\02_ovarian_general_data.xls'
+     OPERATION=CREATEFILE
+     LOCATION=LASTCOLUMN  NOTESCAPTIONS=YES.

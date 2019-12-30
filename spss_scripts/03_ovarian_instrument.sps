@@ -1,6 +1,6 @@
 GET DATA 
   /TYPE=XLS 
-  /FILE='C:\temp\ovarian_stat_20190910\03_ovarian_instrument.xls' 
+  /FILE='C:\temp\ovarian_stat_20190910\data\03_ovarian_instrument.xls' 
   /SHEET=name 'Sheet 1' 
   /CELLRANGE=full 
   /READNAMES=on 
