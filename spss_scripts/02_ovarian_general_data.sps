@@ -8,6 +8,8 @@ GET DATA
   
 * ovarian_general_data.
 VARIABLE LABELS
+age_diag "Возраст на момент постановления диагноза",
+age_visit "Возраст на момент включения в исследование",
 id "",
 patient_id "Пациент (внеш.ключ)",
 visit_id "Визит",
@@ -119,6 +121,7 @@ chem_2st_doksorubicin_dose "2-ая линия ХТ рецидив. рака яичников (1 курс лечения
 chem_2st_other_yes_no_id "2-ая линия ХТ рецидив. рака яичников (1 курс лечения): Иное (да, нет)",
 chem_2st_other_dose "2-ая линия ХТ рецидив. рака яичников (1 курс лечения): Иное, доза",
 chem_2st_concomitant_therapy_descr "2-ая линия ХТ рецидив. рака яичников: Сопутствующая терапия",
+pld_or_doxopeg_or_kelix_sum "2-ая линия ХТ рецидив. рака яичников (1 курс лечения): ПЛД (Доксопэг/Келикс), доза",
 undesirable_event_yes_no_id "Нежелательное явление (да, нет) - Отмечал ли пациент какие-либо нежелательные явления при применении химиотерапии Трабектедин в комбинации с ПЛД? Если да, просьба заполнить бланк НЯ",
 checked "Проверено монитором",
 user "",
@@ -487,18 +490,22 @@ undesirable_event_yes_no_id
 /ORDER=ANALYSIS.
 
 DESCRIPTIVES VARIABLES=
+age_diag
+age_visit
 weight_kg
 height_sm
 progress_ca125
 chem_1st_course_number
 chem_2st_trabectedin_dose
-chem_2st_pld_dose
-chem_2st_doxopeg_dose
-chem_2st_kelix_dose
+pld_or_doxopeg_or_kelix_sum
 chem_2st_doksorubicin_dose
 chem_2st_other_dose
 checked
 /STATISTICS=MEAN STDDEV VARIANCE RANGE MIN MAX SEMEAN.
+
+ * chem_2st_pld_dose
+chem_2st_doxopeg_dose
+chem_2st_kelix_dose
 
 NPAR TESTS
 K-S(NORMAL)=
@@ -512,6 +519,7 @@ chem_2st_doxopeg_dose
 chem_2st_kelix_dose
 chem_2st_doksorubicin_dose
 chem_2st_other_dose
+pld_or_doxopeg_or_kelix_sum
 /MISSING ANALYSIS.
 
 * Экспортировать вывод.
