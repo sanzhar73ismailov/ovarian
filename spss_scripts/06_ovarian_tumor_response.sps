@@ -14,6 +14,7 @@ full_response_yes_no_id "Объективная оценка эффективности лечения (RECIST*) Полн
 partial_response_yes_no_id "Объективная оценка эффективности лечения (RECIST*) Частичный ответ (да, нет)",
 progress_desease_yes_no_id "Объективная оценка эффективности лечения (RECIST*) Прогрессирование заболевания (да, нет)",
 stabilization_desease_yes_no_id "Объективная оценка эффективности лечения (RECIST*) Стабилизация заболевания (да, нет)",
+response "эффективность лечения", 
 checked "Проверено монитором",
 user "Пользователь",
 insert_date "Дата регистрации".
@@ -29,7 +30,13 @@ full_response_yes_no_id
 0 "нет"
 /stabilization_desease_yes_no_id
 1 "да",
-0 "нет".
+0 "нет"
+/response
+1 "Прогрессирование заболевания",
+2 "Стабилизация заболевания",
+3 "Частичный ответ",
+4 "Полный ответ"
+.
 
 MISSING VALUES
 patient_id
@@ -42,11 +49,15 @@ stabilization_desease_yes_no_id (-1).
 SORT CASES BY visit_id.
 SPLIT FILE LAYERED BY visit_id.
 
-FREQUENCIES VARIABLES=
+ * FREQUENCIES VARIABLES=
 full_response_yes_no_id
 partial_response_yes_no_id
 progress_desease_yes_no_id
 stabilization_desease_yes_no_id
+/ORDER=ANALYSIS.
+
+FREQUENCIES VARIABLES=
+response
 /ORDER=ANALYSIS.
 
 *DESCRIPTIVES VARIABLES - No parameters.
@@ -77,6 +88,13 @@ CROSSTABS
 
 CROSSTABS
 /TABLES=stabilization_desease_yes_no_id BY visit_id
+/FORMAT=AVALUE TABLES
+/STATISTICS=CHISQ
+/CELLS=COUNT ROW
+/COUNT ROUND CELL.
+
+CROSSTABS
+/TABLES=response BY visit_id
 /FORMAT=AVALUE TABLES
 /STATISTICS=CHISQ
 /CELLS=COUNT ROW
